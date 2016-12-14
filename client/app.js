@@ -1,23 +1,27 @@
-angular.module('Instagram', ['ngRoute', 'ngMessages', 'satellizer'])
-  .config(function($routeProvider, $authProvider) {
-    $routeProvider
-      .when('/',{
+angular.module('Instagram', ['ui.router', 'ngMessages', 'satellizer'])
+  .config(function($stateProvider, $urlRouterProvider, $authProvider) {
+    $urlRouterProvider.otherwise('/');
+    $stateProvider
+      .state('home',{
+        url: '/',
         templateUrl: 'views/home.html',
         controller: 'HomeCtrl'
       })
-      .when('/login', {
+      .state('login', {
+        url: '/login',
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
-      .when('/signup', {
+      .state('signup', {
+        url: '/signup',
         templateUrl: 'views/signup.html',
         controller: 'SignupCtrl'
       })
-      .when('/photo/:id', {
+      .state('photoShow', {
+        url: '/photo/:id',
         templateUrl: 'views/detail.html',
         controller: 'DetailCtrl'
       })
-      .otherwise('/');
 
     $authProvider.loginUrl = 'http://localhost:3000/auth/login';
     $authProvider.signupUrl = 'http://localhost:3000/auth/signup';
